@@ -1,4 +1,3 @@
-import {json} from "body-parser";
 import express from "express";
 import morgan from "morgan";
 import { createBaseRouter } from "./baseRouter";

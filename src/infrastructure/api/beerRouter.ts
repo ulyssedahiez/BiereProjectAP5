@@ -14,7 +14,7 @@ export function createBeerRouter() {
   const router = Router();
   router.get("/", async (_, res) => res.json({beers: await getAllBeers({beerRepository})}));
   router.get("/me", async(_, res) => res.json({tastedBeers: await getAllTastedBeersUseCase({tastedBeerRepository})}));
-  
+  router.post("/me", async (req, res) => res.json({ beerAdded:   await addTastedBeersUseCase({ tastedBeerRepository, beerRepository }, req.body)}));
   router.put("/me", async(req, res) => res.json({tastedBeers: await setBeerLikedOpinionOnTastedBeerUseCase({tastedBeerRepository},req.body.id,req.body.hasLiked)}));
   
   return router;

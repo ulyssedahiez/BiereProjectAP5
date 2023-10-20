@@ -1,6 +1,6 @@
 import { BeerColorIntensity } from './beer-color-intensity';
 
-type BeerDependencies = {
+export type BeerDependencies = {
   id: number;
   name: string;
 };

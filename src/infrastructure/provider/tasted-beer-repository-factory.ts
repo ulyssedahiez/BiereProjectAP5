@@ -1,5 +1,5 @@
-import {PunkAPIBeerRepository} from './punk-api/punk-api-beer-repository';
+import { LocalTastedBeerRepository } from './local/local-tasted-beer-repository';
 
 export function makeTastedBeerRepository() {
-  return new PunkAPIBeerRepository();
+  return new LocalTastedBeerRepository();
 }

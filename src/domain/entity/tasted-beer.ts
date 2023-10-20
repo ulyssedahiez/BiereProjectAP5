@@ -1,8 +1,9 @@
-import{Beer,BeerDependencies} from './beer';
+import { Beer, BeerDependencies } from "./beer";
 
-export class TastedBeer extends Beer{
-  public hasliked = false;
+export class TastedBeer extends Beer {
+  public hasLiked = false;
 
-  constructor(deps: BeerDependencies){
+  constructor(deps: BeerDependencies) {
     super(deps);
   }
+}

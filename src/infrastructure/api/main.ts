@@ -10,4 +10,3 @@ application.use("/", createBaseRouter());
 application.use("/beers", createBeerRouter());
 
 application.listen(3000, () => console.log("[Server] Development server started"));
-

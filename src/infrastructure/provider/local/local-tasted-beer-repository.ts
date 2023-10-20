@@ -41,8 +41,12 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
     );
   }
 
+  
+
   async setBeerLikedOpinionOnTastedBeer(id: number, hasLiked: boolean): Promise<void> {
+    
     const tastedBeers = await this.getAllTastedBeers();
+
     const tastedBeer = tastedBeers.find((tastedBeer) => tastedBeer.id === id);
 
     if (!tastedBeer) {

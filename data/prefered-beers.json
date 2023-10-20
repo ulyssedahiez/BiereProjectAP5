@@ -1,3 +1,1 @@
-{
-    "tastedBeers":[]
-}
+{"tastedBeers":[{"id":1,"name":"Buzz","hasLiked":true},{"id":4,"name":"Pilsen Lager","hasLiked":false},{"id":5,"name":"Avery Brown Dredge","hasLiked":false},{"id":2,"name":"Trashy Blonde","hasLiked":true}]}

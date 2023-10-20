@@ -19,7 +19,7 @@ export async function addTastedBeersUseCase(deps: addTastedBeersDependencies, be
     }
 
     const tastedBeer = new TastedBeer({ id: beer.id, name: beer.name });
-
+    tastedBeer.hasLiked = beerd.hasLiked;
     return await deps.tastedBeerRepository.addTastedBeer(tastedBeer);
   } catch (err) {
     console.error(err);

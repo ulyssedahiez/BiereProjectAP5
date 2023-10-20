@@ -1,4 +1,4 @@
-export enum BeerColorIntensity {
+export enum  BeerColorIntensity {
   PALE = "Pale",
   GOLDEN = "Golden",
   WEISS = "WEISS",

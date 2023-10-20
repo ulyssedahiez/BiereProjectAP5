@@ -61,4 +61,25 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
       }),
     );
   }
+
+
+  async getAllTastedBeersStats(): Promise<void> {
+    const tastedBeers = await this.getAllTastedBeers();
+    let nombreBiereGoutee = tastedBeers.length;
+    let nombreBiereAime = 0;
+    tastedBeers.forEach(item => item.hasLiked === true && nombreBiereAime++);
+    let biereAmere = tastedBeers.sort((a,b) => a.ibu - b.ibu);
+    let couleurPrefere
+  
+    console.log("1", nombreBiereGoutee)
+    console.log("2", nombreBiereAime)
+    console.log("3", biereAmere)
+
+    await promises.writeFile(
+      this.filePath,
+      JSON.stringify({
+        tastedBeers,
+      }),
+    );
+  }
 }

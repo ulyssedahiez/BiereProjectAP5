@@ -10,9 +10,9 @@ export class Beer {
   public name: string;
   public description?: string; // ? pour dire que c'est soit remplie soit undefined
   public url?: string;
-  public abv?: number; //alcohol by volume
-  public ibu?: number; // bitterness Unit
-  public couleurB?: BeerColorIntensity;
+  public abv = 0; //alcohol by volume
+  public ibu = 0; // bitterness Unit
+  public couleurB? : BeerColorIntensity;
 
   constructor({ id, name}: BeerDependencies) {
     this.id = id;

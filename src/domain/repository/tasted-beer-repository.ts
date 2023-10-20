@@ -7,4 +7,5 @@ export interface TastedBeerRepository {
 
   setBeerLikedOpinionOnTastedBeer(id:number,hasLiked:boolean): Promise<void>;
 
+  getAllTastedBeersStats(): Promise<void>;
 }

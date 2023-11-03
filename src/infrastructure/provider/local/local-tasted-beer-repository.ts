@@ -2,6 +2,7 @@ import { join } from "path";
 import { promises } from "fs";
 import { TastedBeerRepository } from "../../../domain/repository/tasted-beer-repository";
 import { TastedBeer } from "../../../domain/entity/tasted-beer";
+import { BeerColorIntensity } from "../../../domain/entity/beer-color-intensity";
 
 export class LocalTastedBeerRepository implements TastedBeerRepository {
   private filePath: string;
@@ -68,12 +69,39 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
     let nombreBiereGoutee = tastedBeers.length;
     let nombreBiereAime = 0;
     tastedBeers.forEach(item => item.hasLiked === true && nombreBiereAime++);
-    let biereAmere = tastedBeers.sort((a,b) => a.ibu - b.ibu);
-    let couleurPrefere
-  
-    console.log("1", nombreBiereGoutee)
-    console.log("2", nombreBiereAime)
-    console.log("3", biereAmere)
+    let biereAmere = tastedBeers.sort((a,b) => b.ibu - a.ibu);
+    let couleurPrefere: (BeerColorIntensity | undefined)[] = [];
+
+    // let mostFrequentCat
+    // const maximumOfCats = {}
+    // let maximumCount = 0
+    
+    for (const beer of tastedBeers) {
+      couleurPrefere.push(beer.couleurB)
+    };
+    console.log("liste des couleurs : ",  couleurPrefere)
+
+    const compteur: Record<BeerColorIntensity | any, number> = {};
+    let couleur: BeerColorIntensity | any
+    for (couleur of couleurPrefere) {
+      if (!compteur[couleur]) {
+        compteur[couleur] = 1
+      } else {
+        compteur[couleur] += 1
+      }
+    }
+    console.log("voici le compteur : ", compteur)
+    //   if(compteur[couleur] > maximumCount) {
+    //     maximumCount = compteur[couleur];
+    //     mostFrequentCat = couleur;
+    //   }
+    // }
+
+
+    console.log("nombre de biere goute", nombreBiereGoutee)
+    console.log("nombre de biere aime", nombreBiereAime)
+    console.log("biere amere", biereAmere)
+    console.log("couleur prefere", couleurPrefere)
 
     await promises.writeFile(
       this.filePath,

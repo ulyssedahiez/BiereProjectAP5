@@ -64,25 +64,33 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
   }
 
 
-  async getAllTastedBeersStats(): Promise<void> {
+  async getAllTastedBeersStats(): Promise<Object> {
+    
     const tastedBeers = await this.getAllTastedBeers();
     let nombreBiereGoutee = tastedBeers.length;
     let nombreBiereAime = 0;
     tastedBeers.forEach(item => item.hasLiked === true && nombreBiereAime++);
     let biereAmere = tastedBeers.sort((a,b) => b.ibu - a.ibu);
     let couleurPrefere: (BeerColorIntensity | undefined)[] = [];
-
-    // let mostFrequentCat
-    // const maximumOfCats = {}
-    // let maximumCount = 0
-    
-    for (const beer of tastedBeers) {
-      couleurPrefere.push(beer.couleurB)
-    };
-    console.log("liste des couleurs : ",  couleurPrefere)
-
+    let listeDegree: number[] = [];
     const compteur: Record<BeerColorIntensity | any, number> = {};
     let couleur: BeerColorIntensity | any
+    let plusGrandeValeur = -Infinity; 
+    let cléLaPlusGrande: string | undefined;
+
+
+    for (const beer of tastedBeers) {
+      if (beer.hasLiked === true) {
+        couleurPrefere.push(beer.couleurB)
+      }
+    };
+
+    for (const beer of tastedBeers) {
+      listeDegree.push(beer.abv)
+    };
+    const somme = listeDegree.reduce((acc, élément) => acc + élément, 0);
+    const moyenneDegree = somme / listeDegree.length;
+
     for (couleur of couleurPrefere) {
       if (!compteur[couleur]) {
         compteur[couleur] = 1
@@ -90,24 +98,34 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
         compteur[couleur] += 1
       }
     }
-    console.log("voici le compteur : ", compteur)
-    //   if(compteur[couleur] > maximumCount) {
-    //     maximumCount = compteur[couleur];
-    //     mostFrequentCat = couleur;
-    //   }
-    // }
+  
+    for (const clé in compteur) {
+      if (compteur[clé] > plusGrandeValeur) {
+        plusGrandeValeur = compteur[clé];
+        cléLaPlusGrande = clé;
+      }
+    }
+  
+    let pourcentageBiereAime = nombreBiereAime/nombreBiereAime * 100
+    const plusAmere = biereAmere.slice(0, 3);
 
 
     console.log("nombre de biere goute", nombreBiereGoutee)
     console.log("nombre de biere aime", nombreBiereAime)
-    console.log("biere amere", biereAmere)
-    console.log("couleur prefere", couleurPrefere)
+    console.log("pourcentage de biere aimée : ", pourcentageBiereAime)
+    console.log("moyenne degré biere : ", moyenneDegree)
+    console.log("Couleur préféré : ", cléLaPlusGrande);
+    console.log("3 biere les plus amère : ", plusAmere)
 
-    await promises.writeFile(
-      this.filePath,
-      JSON.stringify({
-        tastedBeers,
-      }),
-    );
+    const resultats = {
+      "nombreBiereGoutee": nombreBiereGoutee,
+      "nombreBiereAime": nombreBiereAime,
+      "pourcentageBiereAime": pourcentageBiereAime,
+      "moyenneDegree": moyenneDegree,
+      "couleurPreferee": cléLaPlusGrande,
+      "troisBieresPlusAmeres": plusAmere
+    };
+
+    return JSON.stringify(resultats)
   }
 }

@@ -12,6 +12,6 @@ export async function getAllTastedBeersUseCase(deps: getAllTastedBeersDependenci
 
 
 
-export async function getTastedBeersUseCaseStats(deps: getAllTastedBeersDependencies): Promise<void> {
+export async function getTastedBeersUseCaseStats(deps: getAllTastedBeersDependencies): Promise<Object> {
   return await deps.tastedBeerRepository.getAllTastedBeersStats();
 }

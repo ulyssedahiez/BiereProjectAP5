@@ -131,6 +131,6 @@ export class LocalTastedBeerRepository implements TastedBeerRepository {
       "troisBieresPlusAmeres": plusAmere
     };
 
-    return JSON.stringify(resultats)
+    return (resultats)
   }
 }

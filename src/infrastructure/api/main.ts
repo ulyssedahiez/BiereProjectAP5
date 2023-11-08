@@ -8,6 +8,8 @@ const application = express();
 application.use(morgan("dev"));
 application.use(json())
 
+application.use(json());
+
 application.use("/", createBaseRouter());
 application.use("/beers", createBeerRouter());
 
